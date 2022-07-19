@@ -1,13 +1,12 @@
 #ifndef PAWN_H
 #define PAWN_H
 #include "piece.h"
-#include "tile.h"
 
 class Pawn: public Piece
 {
 public:
     Pawn(int pieceColor);
-    int validate(Tile *temp, int checker);
+    int validate(int row, int col, int checker);
 };
 
 #endif // PAWN_H

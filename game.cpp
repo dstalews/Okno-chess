@@ -8,7 +8,6 @@ Game::Game()
     turnAll=1;
     whitePromotion = 'Q';
     blackPromotion = 'Q';
-    valid = new Validation();
     ranking = new Ranking();
 }
 
@@ -18,9 +17,9 @@ void Game::validate(Tile *temp, int c)
 
     if(c==1)
     {
-        if(temp->piece && (temp->pieceColor==turn))
+        if(temp->pieceObject && (temp->pieceObject->pieceColor==turn))
         {
-            retValue=valid->chooser(temp,1);
+            retValue=temp->pieceObject->validate(temp->row,temp->col,1);
             orange();
             if(retValue)
             {
@@ -59,16 +58,16 @@ void Game::validate(Tile *temp, int c)
                 click1->tileSwap(temp);
 
                 // if moving king then remeber new king position
-                if (temp->pieceName == 'K')
+                if (temp->pieceObject->pieceName == 'K')
                 {
-                    if (temp->pieceColor)
+                    if (temp->pieceObject->pieceColor)
                         whiteKing->tileCopy(temp);
                     else
                         blackKing->tileCopy(temp);
                 }
 
-                click1->display(click1->pieceName);
-                temp->display(click1->pieceName);
+                click1->display();
+                temp->display();
 
                 click1->tileDisplay();
                 temp->tileDisplay();
@@ -78,7 +77,7 @@ void Game::validate(Tile *temp, int c)
                 {
                     for (j=0;j<=7;j++)
                     {
-                        if (tile[i][j]->piece==1 && tile[i][j]->pieceColor!=temp->pieceColor && valid->chooser(tile[i][j],1))
+                        if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->pieceColor!=temp->pieceObject->pieceColor && tile[i][j]->pieceObject->validate(i,j,1))
                         {
                             retValue = 1;
                             break;
@@ -96,7 +95,7 @@ void Game::validate(Tile *temp, int c)
                     label->setAlignment(Qt::AlignCenter);
                     label->setGeometry(572,420,250,50);
                     label->setStyleSheet("QLabel {background-color: yellow;}");
-                    if (temp->pieceColor)
+                    if (temp->pieceObject->pieceColor)
                     {
                         label->setText("White player won");
                         if (player1 && player2)
@@ -154,61 +153,57 @@ void Game::orange()
 
 void Game::specialMoves(Tile *temp)
 {
-    if(temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceName == 'P' && tile[temp->row-1][temp->col]->piece && temp->col != click1->col &&
-         click1 -> pieceName == 'P' && !click1 -> pieceColor && !temp->piece)
+    if(tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject->pieceName == 'P' && temp->col != click1->col &&
+         click1->pieceObject -> pieceName == 'P' && !click1->pieceObject -> pieceColor)
     {
-        tile[temp->row-1][temp->col] -> piece = 0;
-        tile[temp->row-1][temp->col] -> display(tile[temp->row-1][temp->col]->pieceName);
+        tile[temp->row-1][temp->col] -> pieceObject = nullptr;
+        tile[temp->row-1][temp->col] -> display();
         tile[temp->row-1][temp->col] -> tileDisplay();
     }
-    else if(temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceName == 'P' && tile[temp->row+1][temp->col]->piece && temp->col != click1->col &&
-             click1 -> pieceName == 'P' && click1 -> pieceColor && !temp->piece)
+    else if(tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject->pieceName == 'P' && temp->col != click1->col &&
+             click1->pieceObject -> pieceName == 'P' && click1->pieceObject -> pieceColor)
     {
-        tile[temp->row+1][temp->col] -> piece = 0;
-        tile[temp->row+1][temp->col] -> display(tile[temp->row+1][temp->col]->pieceName);
+        tile[temp->row+1][temp->col] -> pieceObject = nullptr;
+        tile[temp->row+1][temp->col] -> display();
         tile[temp->row+1][temp->col] -> tileDisplay();
     }
-    else if(click1 -> pieceName == 'K' && abs(temp->col-click1->col)>1)
+    else if(click1->pieceObject -> pieceName == 'K' && abs(temp->col-click1->col)>1)
     {
         if(temp->col>click1->col)
         {
-            tile[temp->row][7] -> piece = 0;
-            tile[temp->row][7] -> display(tile[temp->row][7]->pieceName);
+            tile[temp->row][7] -> tileSwap(tile[temp->row][5]);
+            tile[temp->row][7] -> display();
             tile[temp->row][7] -> tileDisplay();
-            tile[temp->row][5] -> piece = 1;
-            tile[temp->row][5] -> pieceColor=click1->pieceColor;
-            tile[temp->row][5] -> pieceName='R';
-            tile[temp->row][5] -> display('R');
+            tile[temp->row][5] -> display();
             tile[temp->row][5] -> tileDisplay();
         }
         if(temp->col<click1->col)
         {
-            tile[temp->row][0] -> piece = 0;
-            tile[temp->row][0] -> display(tile[temp->row][7]->pieceName);
+            tile[temp->row][0] -> tileSwap(tile[temp->row][3]);
+            tile[temp->row][0] -> display();
             tile[temp->row][0] -> tileDisplay();
-            tile[temp->row][3] -> piece = 1;
-            tile[temp->row][3] -> pieceColor=click1->pieceColor;
-            tile[temp->row][3] -> pieceName='R';
-            tile[temp->row][3] -> display('R');
+            tile[temp->row][3] -> display();
             tile[temp->row][3] -> tileDisplay();
         }
     }
-    else if (click1 -> pieceName == 'P' && click1 -> pieceColor && click1->row == 1)
+    else if (click1->pieceObject->pieceName=='P'&&click1->pieceObject->pieceColor&&click1->row==1)
     {
-        click1 -> pieceName = whitePromotion;
+        click1->pieceObject->pieceName=whitePromotion;
     }
-    else if (click1 -> pieceName == 'P' && !click1 -> pieceColor && click1->row == 6)
+    else if (click1->pieceObject->pieceName=='P'&&!click1->pieceObject->pieceColor&&click1->row==6)
     {
-        click1 -> pieceName = blackPromotion;
+        click1->pieceObject->pieceName=blackPromotion;
     }
-
-    if((abs(temp->row-click1->row)>1 && click1 -> pieceName == 'P') || click1 -> pieceName == 'K' || click1 -> pieceName == 'R')
+    if (temp->pieceObject)
     {
-        temp -> en = turnAll;
-    }
-    else
-    {
-        temp -> en = 0;
+        if((abs(temp->row-click1->row)>1 && click1->pieceObject->pieceName=='P') || click1->pieceObject->pieceName=='K'||click1->pieceObject->pieceName=='R')
+        {
+            temp->pieceObject->en = turnAll;
+        }
+        else
+        {
+            temp->pieceObject->en = 0;
+        }
     }
 
 }
@@ -222,9 +217,9 @@ int Game::check(int r,int c, int color)
     {
         for (j=0;j<8;j++)
         {
-            if (tile[i][j]->pieceColor != color && tile[i][j]->piece && (i!=r || j !=c))
+            if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->pieceColor != color && (i!=r || j !=c))
             {
-                //chooser(tile[i][j],0);
+                tile[i][j]->pieceObject->validate(i,j,0);
                 for(k=tmp;k<max;k++)
                 {
                     if (exp[k]/8 == r && exp[k]%8 == c)

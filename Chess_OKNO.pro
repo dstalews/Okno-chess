@@ -19,9 +19,8 @@ SOURCES += main.cpp\
     player.cpp \
     queen.cpp \
     ranking.cpp \
-    rock.cpp \
-    tile.cpp \
-    validation.cpp
+    rook.cpp \
+    tile.cpp
 
 HEADERS  += mainwindow.h \
     bishop.h \
@@ -33,9 +32,8 @@ HEADERS  += mainwindow.h \
     player.h \
     queen.h \
     ranking.h \
-    rock.h \
-    tile.h \
-    validation.h
+    rook.h \
+    tile.h
 
 RESOURCES += \
     Images.qrc

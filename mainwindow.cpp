@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include "game.h"
+#include "bishop.h"
+#include "horse.h"
+#include "king.h"
+#include "pawn.h"
+#include "queen.h"
+#include "rook.h"
 
 extern Game *chess;
 
@@ -45,10 +51,10 @@ void MainWindow::slotShowRanking() {
     this->addDockWidget(Qt::LeftDockWidgetArea,ranks);
 }
 
-void MainWindow::slotWhiteRock() {
+void MainWindow::slotWhiteRook() {
 
     chess->whitePromotion = 'R';
-    whiteRock->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
+    whiteRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
     whiteBishop->setStyleSheet("QPushButton {background-color: none;}");
@@ -60,7 +66,7 @@ void MainWindow::slotWhiteHorse() {
     chess->whitePromotion = 'H';
     whiteHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
-    whiteRock->setStyleSheet("QPushButton {background-color: none;}");
+    whiteRook->setStyleSheet("QPushButton {background-color: none;}");
     whiteBishop->setStyleSheet("QPushButton {background-color: none;}");
 
 }
@@ -71,7 +77,7 @@ void MainWindow::slotWhiteBishop() {
     whiteBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
-    whiteRock->setStyleSheet("QPushButton {background-color: none;}");
+    whiteRook->setStyleSheet("QPushButton {background-color: none;}");
 
 }
 
@@ -79,16 +85,16 @@ void MainWindow::slotWhiteQueen() {
 
     chess->whitePromotion = 'Q';
     whiteQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
-    whiteRock->setStyleSheet("QPushButton {background-color: none;}");
+    whiteRook->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
     whiteBishop->setStyleSheet("QPushButton {background-color: none;}");
 
 }
 
-void MainWindow::slotBlackRock() {
+void MainWindow::slotBlackRook() {
 
     chess->blackPromotion = 'R';
-    blackRock->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
+    blackRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
     blackBishop->setStyleSheet("QPushButton {background-color: none;}");
@@ -100,7 +106,7 @@ void MainWindow::slotBlackHorse() {
     chess->blackPromotion = 'H';
     blackHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
-    blackRock->setStyleSheet("QPushButton {background-color: none;}");
+    blackRook->setStyleSheet("QPushButton {background-color: none;}");
     blackBishop->setStyleSheet("QPushButton {background-color: none;}");
 
 }
@@ -111,7 +117,7 @@ void MainWindow::slotBlackBishop() {
     blackBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
-    blackRock->setStyleSheet("QPushButton {background-color: none;}");
+    blackRook->setStyleSheet("QPushButton {background-color: none;}");
 
 }
 
@@ -119,7 +125,7 @@ void MainWindow::slotBlackQueen() {
 
     chess->blackPromotion = 'Q';
     blackQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
-    blackRock->setStyleSheet("QPushButton {background-color: none;}");
+    blackRook->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
     blackBishop->setStyleSheet("QPushButton {background-color: none;}");
 
@@ -164,11 +170,11 @@ void MainWindow::buttons()
 {
     restart = new QPushButton("&Restart", this);
     ranking = new QPushButton("&Ranking", this);
-    whiteRock = new QPushButton("&R", this);
+    whiteRook = new QPushButton("&R", this);
     whiteHorse = new QPushButton("&H", this);
     whiteBishop = new QPushButton("&B", this);
     whiteQueen = new QPushButton("&Q", this);
-    blackRock = new QPushButton("&R", this);
+    blackRook = new QPushButton("&R", this);
     blackHorse = new QPushButton("&H", this);
     blackBishop = new QPushButton("&B", this);
     blackQueen = new QPushButton("&Q", this);
@@ -186,12 +192,12 @@ void MainWindow::buttons()
 
     restart->setGeometry(572,20,250,40);
     ranking->setGeometry(572,70,250,40);
-    whiteRock->setGeometry(572,200,50,50);
+    whiteRook->setGeometry(572,200,50,50);
     whiteHorse->setGeometry(638,200,50,50);
     whiteBishop->setGeometry(704,200,50,50);
     whiteQueen->setGeometry(770,200,50,50);
 
-    blackRock->setGeometry(572,350,50,50);
+    blackRook->setGeometry(572,350,50,50);
     blackHorse->setGeometry(638,350,50,50);
     blackBishop->setGeometry(704,350,50,50);
     blackQueen->setGeometry(770,350,50,50);
@@ -201,11 +207,11 @@ void MainWindow::buttons()
 
     QObject::connect(restart, &QPushButton::released, this, &MainWindow::slotReboot);
     QObject::connect(ranking, &QPushButton::released, this, &MainWindow::slotShowRanking);
-    QObject::connect(whiteRock, &QPushButton::released, this, &MainWindow::slotWhiteRock);
+    QObject::connect(whiteRook, &QPushButton::released, this, &MainWindow::slotWhiteRook);
     QObject::connect(whiteHorse, &QPushButton::released, this, &MainWindow::slotWhiteHorse);
     QObject::connect(whiteBishop, &QPushButton::released, this, &MainWindow::slotWhiteBishop);
     QObject::connect(whiteQueen, &QPushButton::released, this, &MainWindow::slotWhiteQueen);
-    QObject::connect(blackRock, &QPushButton::released, this, &MainWindow::slotBlackRock);
+    QObject::connect(blackRook, &QPushButton::released, this, &MainWindow::slotBlackRook);
     QObject::connect(blackHorse, &QPushButton::released, this, &MainWindow::slotBlackHorse);
     QObject::connect(blackBishop, &QPushButton::released, this, &MainWindow::slotBlackBishop);
     QObject::connect(blackQueen, &QPushButton::released, this, &MainWindow::slotBlackQueen);
@@ -257,7 +263,6 @@ void MainWindow::chessBoard()
         {
             chess->tile[i][j] = new Tile(this);
             chess->tile[i][j]->tileColor=(i+j)%2;
-            chess->tile[i][j]->piece=0;
             chess->tile[i][j]->row=i;
             chess->tile[i][j]->col=j;
             chess->tile[i][j]->tileNum=k++;
@@ -271,49 +276,55 @@ void MainWindow::chessBoard()
     //black pawns
     for(j=0;j<8;j++)
     {
-        chess->tile[1][j]->piece=1;
-        chess->tile[1][j]->pieceColor=0;
-        chess->tile[1][j]->display('P');
+        chess->tile[1][j]->setPiece(new Pawn(0));
+        chess->tile[1][j]->display();
+
     }
 
     //white pawns
     for(j=0;j<8;j++)
     {
-        chess->tile[6][j]->piece=1;
-        chess->tile[6][j]->pieceColor=1;
-        chess->tile[6][j]->display('P');
-    }
-
-    //white and black remaining elements
-    for(j=0;j<8;j++)
-    {
-        chess->tile[0][j]->piece=1;
-        chess->tile[0][j]->pieceColor=0;
-        chess->tile[7][j]->piece=1;
-        chess->tile[7][j]->pieceColor=1;
+        chess->tile[6][j]->setPiece(new Pawn(1));
+        chess->tile[6][j]->display();
     }
 
     {
-    chess->tile[0][0]->display('R');
-    chess->tile[0][1]->display('H');
-    chess->tile[0][2]->display('B');
-    chess->tile[0][3]->display('Q');
-    chess->tile[0][4]->display('K');
-    chess->tile[0][5]->display('B');
-    chess->tile[0][6]->display('H');
-    chess->tile[0][7]->display('R');
+    chess->tile[0][0]->setPiece(new Rook(0));
+    chess->tile[0][0]->display();
+    chess->tile[0][1]->setPiece(new Horse(0));
+    chess->tile[0][1]->display();
+    chess->tile[0][2]->setPiece(new Bishop(0));
+    chess->tile[0][2]->display();
+    chess->tile[0][3]->setPiece(new Queen(0));
+    chess->tile[0][3]->display();
+    chess->tile[0][4]->setPiece(new King(0));
+    chess->tile[0][4]->display();
+    chess->tile[0][5]->setPiece(new Bishop(0));
+    chess->tile[0][5]->display();
+    chess->tile[0][6]->setPiece(new Horse(0));
+    chess->tile[0][6]->display();
+    chess->tile[0][7]->setPiece(new Rook(0));
+    chess->tile[0][7]->display();
     }
 
 
     {
-    chess->tile[7][0]->display('R');
-    chess->tile[7][1]->display('H');
-    chess->tile[7][2]->display('B');
-    chess->tile[7][3]->display('Q');
-    chess->tile[7][4]->display('K');
-    chess->tile[7][5]->display('B');
-    chess->tile[7][6]->display('H');
-    chess->tile[7][7]->display('R');
+    chess->tile[7][0]->setPiece(new Rook(1));
+    chess->tile[7][0]->display();
+    chess->tile[7][1]->setPiece(new Horse(1));
+    chess->tile[7][1]->display();
+    chess->tile[7][2]->setPiece(new Bishop(1));
+    chess->tile[7][2]->display();
+    chess->tile[7][3]->setPiece(new Queen(1));
+    chess->tile[7][3]->display();
+    chess->tile[7][4]->setPiece(new King(1));
+    chess->tile[7][4]->display();
+    chess->tile[7][5]->setPiece(new Bishop(1));
+    chess->tile[7][5]->display();
+    chess->tile[7][6]->setPiece(new Horse(1));
+    chess->tile[7][6]->display();
+    chess->tile[7][7]->setPiece(new Rook(1));
+    chess->tile[7][7]->display();
     }
     //remember Kings positions
     chess->blackKing->tileCopy(chess->tile[0][4]);

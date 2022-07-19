@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 #include "tile.h"
-#include "validation.h"
 #include "ranking.h"
 #include "player.h"
 
@@ -12,7 +11,6 @@ public:
     Tile *click1, *blackKing, *whiteKing, *tile[8][8] = { { NULL } };
     QLabel *label;
     char whitePromotion, blackPromotion;
-    Validation *valid;
     Ranking *ranking;
     Player *player1, *player2;
     Game();

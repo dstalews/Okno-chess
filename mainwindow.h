@@ -13,7 +13,7 @@ int const EXIT_CODE_REBOOT = -123456789;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    QPushButton *restart, *ranking, *whiteRock, *whiteHorse, *whiteBishop, *whiteQueen, *blackRock, *blackHorse, *blackBishop, *blackQueen;
+    QPushButton *restart, *ranking, *whiteRook, *whiteHorse, *whiteBishop, *whiteQueen, *blackRook, *blackHorse, *blackBishop, *blackQueen;
     QLabel *player1Name, *player2Name;
     QLineEdit *typeP1name, *typeP2name;
     QDockWidget *ranks;
@@ -25,11 +25,11 @@ private:
     void buttons();
     void slotReboot();
     void slotShowRanking();
-    void slotWhiteRock();
+    void slotWhiteRook();
     void slotWhiteHorse();
     void slotWhiteBishop();
     void slotWhiteQueen();
-    void slotBlackRock();
+    void slotBlackRook();
     void slotBlackHorse();
     void slotBlackBishop();
     void slotBlackQueen();
