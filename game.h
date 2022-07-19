@@ -20,6 +20,7 @@ public:
     void disOrange();
     void orange();
     void specialMoves(Tile *temp);
+    int check(int r,int c, int color);
 
 };
 

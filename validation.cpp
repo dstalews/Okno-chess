@@ -30,11 +30,7 @@ int Validation::chooser(Tile *temp, int checker)
 
     case 'B': flag=validateBishop(temp, checker);
               break;
-
     }
-
-    if (checker)
-        chess->orange();
 
     return flag;
 }

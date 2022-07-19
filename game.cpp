@@ -21,7 +21,7 @@ void Game::validate(Tile *temp, int c)
         if(temp->piece && (temp->pieceColor==turn))
         {
             retValue=valid->chooser(temp,1);
-
+            orange();
             if(retValue)
             {
                 click1= new Tile();
@@ -211,4 +211,32 @@ void Game::specialMoves(Tile *temp)
         temp -> en = 0;
     }
 
+}
+
+int Game::check(int r,int c, int color)
+{
+
+    int i, j, k, tmp = max;
+
+    for (i=0;i<8;i++)
+    {
+        for (j=0;j<8;j++)
+        {
+            if (tile[i][j]->pieceColor != color && tile[i][j]->piece && (i!=r || j !=c))
+            {
+                //chooser(tile[i][j],0);
+                for(k=tmp;k<max;k++)
+                {
+                    if (exp[k]/8 == r && exp[k]%8 == c)
+                    {
+                        max = tmp;
+                        return 1;
+                    }
+                }
+                max = tmp;
+            }
+        }
+    }
+
+    return 0;
 }
