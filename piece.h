@@ -4,12 +4,18 @@
 
 class Piece
 {
-public:
+protected:
     int pieceColor, en=0;
     char pieceName;
-    std::string image_path;
+    std::string imagePath;
+public:
     Piece();
-    virtual int validate(int row, int col, int checker) {return 0;};
+    virtual int validate(int row, int col, int checker) {return row+col+checker;};
+    char getPieceName();
+    int getPieceColor();
+    int getPieceEn();
+    std::string getImagePath();
+    void setEn(int i);
 };
 
 #endif // PIECE_H

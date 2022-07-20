@@ -8,9 +8,9 @@ Queen::Queen(int pieceColor)
     this->pieceColor = pieceColor;
     this->pieceName = 'Q';
     if (pieceColor)
-        this->image_path = ":/Images/queen_white.svg";
+        this->imagePath = ":/Images/queen_white.svg";
     else
-        this->image_path = ":/Images/queen_black.svg";
+        this->imagePath = ":/Images/queen_black.svg";
 }
 
 int Queen::validate(int row, int col, int checker)
@@ -43,7 +43,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -53,7 +53,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -99,7 +99,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -109,7 +109,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -155,7 +155,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -165,7 +165,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -211,7 +211,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -221,7 +221,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -267,7 +267,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -277,7 +277,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -323,7 +323,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -333,7 +333,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -379,7 +379,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -389,7 +389,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -435,7 +435,7 @@ int Queen::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -445,7 +445,7 @@ int Queen::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {

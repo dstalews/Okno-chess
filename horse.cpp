@@ -8,9 +8,9 @@ Horse::Horse(int pieceColor)
     this->pieceColor = pieceColor;
     this->pieceName = 'H';
     if (pieceColor)
-        this->image_path = ":/Images/knight_white.svg";
+        this->imagePath = ":/Images/knight_white.svg";
     else
-        this->image_path = ":/Images/knight_black.svg";
+        this->imagePath = ":/Images/knight_black.svg";
 }
 
 int Horse::validate(int row, int col, int checker)
@@ -24,7 +24,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-2>=0 && c-1>=0)
     {
-        if(chess->tile[r-2][c-1]->pieceObject==nullptr || chess->tile[r-2][c-1]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r-2][c-1]->pieceObject==nullptr || chess->tile[r-2][c-1]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -56,7 +56,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-2>=0 && c+1<=7)
     {
-        if(chess->tile[r-2][c+1]->pieceObject==nullptr||chess->tile[r-2][c+1]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r-2][c+1]->pieceObject==nullptr||chess->tile[r-2][c+1]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -88,7 +88,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-1>=0 && c-2>=0)
     {
-        if(chess->tile[r-1][c-2]->pieceObject==nullptr||chess->tile[r-1][c-2]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r-1][c-2]->pieceObject==nullptr||chess->tile[r-1][c-2]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -120,7 +120,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-1>=0 && c+2<=7)
     {
-        if(chess->tile[r-1][c+2]->pieceObject==nullptr || chess->tile[r-1][c+2]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r-1][c+2]->pieceObject==nullptr || chess->tile[r-1][c+2]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -152,7 +152,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+2<=7 && c+1<=7)
     {
-        if(chess->tile[r+2][c+1]->pieceObject == nullptr || chess->tile[r+2][c+1]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r+2][c+1]->pieceObject == nullptr || chess->tile[r+2][c+1]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -184,7 +184,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+2<=7 && c-1>=0)
     {
-        if(chess->tile[r+2][c-1]->pieceObject==nullptr || chess->tile[r+2][c-1]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r+2][c-1]->pieceObject==nullptr || chess->tile[r+2][c-1]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -216,7 +216,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+1<=7 && c-2>=0)
     {
-        if(chess->tile[r+1][c-2]->pieceObject==nullptr||chess->tile[r+1][c-2]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r+1][c-2]->pieceObject==nullptr||chess->tile[r+1][c-2]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -248,7 +248,7 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+1<=7 && c+2<=7)
     {
-        if(chess->tile[r+1][c+2]->pieceObject==nullptr||chess->tile[r+1][c+2]->pieceObject->pieceColor!=this->pieceColor)
+        if(chess->tile[r+1][c+2]->pieceObject==nullptr||chess->tile[r+1][c+2]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {

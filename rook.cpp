@@ -8,9 +8,9 @@ Rook::Rook(int pieceColor)
     this->pieceColor = pieceColor;
     this->pieceName = 'R';
     if (pieceColor)
-        this->image_path = ":/Images/rook_white.svg";
+        this->imagePath = ":/Images/rook_white.svg";
     else
-        this->image_path = ":/Images/rook_black.svg";
+        this->imagePath = ":/Images/rook_black.svg";
 }
 
 int Rook::validate(int row, int col, int checker)
@@ -43,7 +43,7 @@ int Rook::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -53,7 +53,7 @@ int Rook::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -99,7 +99,7 @@ int Rook::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -109,7 +109,7 @@ int Rook::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -155,7 +155,7 @@ int Rook::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -165,7 +165,7 @@ int Rook::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -211,7 +211,7 @@ int Rook::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -221,7 +221,7 @@ int Rook::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {

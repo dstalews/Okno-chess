@@ -8,9 +8,9 @@ Bishop::Bishop(int pieceColor)
     this->pieceColor = pieceColor;
     this->pieceName = 'B';
     if (pieceColor)
-        this->image_path = ":/Images/bishop_white.svg";
+        this->imagePath = ":/Images/bishop_white.svg";
     else
-        this->image_path = ":/Images/bishop_black.svg";
+        this->imagePath = ":/Images/bishop_black.svg";
 }
 
 int Bishop::validate(int row, int col, int checker)
@@ -42,7 +42,7 @@ int Bishop::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -53,7 +53,7 @@ int Bishop::validate(int row, int col, int checker)
         }
 
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -99,7 +99,7 @@ int Bishop::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -109,7 +109,7 @@ int Bishop::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -155,7 +155,7 @@ int Bishop::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -165,7 +165,7 @@ int Bishop::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
@@ -211,7 +211,7 @@ int Bishop::validate(int row, int col, int checker)
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor==this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
@@ -221,7 +221,7 @@ int Bishop::validate(int row, int col, int checker)
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->pieceColor!=this->pieceColor)
+        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {

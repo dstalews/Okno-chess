@@ -24,8 +24,8 @@ void MainWindow::slotReboot() {
     chess->turn=1;
     chess->max=0;
     chess->turnAll=1;
-    chess->whitePromotion = 'Q';
-    chess->blackPromotion = 'Q';
+    chess->whitePromotion= new Queen(1);
+    chess->blackPromotion = new Queen(0);
     qApp->exit( EXIT_CODE_REBOOT );
 }
 
@@ -53,7 +53,7 @@ void MainWindow::slotShowRanking() {
 
 void MainWindow::slotWhiteRook() {
 
-    chess->whitePromotion = 'R';
+    chess->whitePromotion = new Rook(1);
     whiteRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -63,7 +63,7 @@ void MainWindow::slotWhiteRook() {
 
 void MainWindow::slotWhiteHorse() {
 
-    chess->whitePromotion = 'H';
+    chess->whitePromotion = new Horse(1);
     whiteHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteRook->setStyleSheet("QPushButton {background-color: none;}");
@@ -73,7 +73,7 @@ void MainWindow::slotWhiteHorse() {
 
 void MainWindow::slotWhiteBishop() {
 
-    chess->whitePromotion = 'B';
+    chess->whitePromotion = new Bishop(1);
     whiteBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -83,7 +83,7 @@ void MainWindow::slotWhiteBishop() {
 
 void MainWindow::slotWhiteQueen() {
 
-    chess->whitePromotion = 'Q';
+    chess->whitePromotion = new Queen(1);
     whiteQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteRook->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -93,7 +93,7 @@ void MainWindow::slotWhiteQueen() {
 
 void MainWindow::slotBlackRook() {
 
-    chess->blackPromotion = 'R';
+    chess->blackPromotion = new Rook(0);
     blackRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -103,7 +103,7 @@ void MainWindow::slotBlackRook() {
 
 void MainWindow::slotBlackHorse() {
 
-    chess->blackPromotion = 'H';
+    chess->blackPromotion = new Horse(0);
     blackHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackRook->setStyleSheet("QPushButton {background-color: none;}");
@@ -113,7 +113,7 @@ void MainWindow::slotBlackHorse() {
 
 void MainWindow::slotBlackBishop() {
 
-    chess->blackPromotion = 'B';
+    chess->blackPromotion = new Bishop(0);
     blackBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -123,7 +123,7 @@ void MainWindow::slotBlackBishop() {
 
 void MainWindow::slotBlackQueen() {
 
-    chess->blackPromotion = 'Q';
+    chess->blackPromotion = new Queen(0);
     blackQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackRook->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");

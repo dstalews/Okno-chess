@@ -1,4 +1,5 @@
 #include "game.h"
+#include "queen.h"
 
 Game::Game()
 {
@@ -6,8 +7,8 @@ Game::Game()
     turn=1;
     max=0;
     turnAll=1;
-    whitePromotion = 'Q';
-    blackPromotion = 'Q';
+    whitePromotion = new Queen(1);
+    blackPromotion = new Queen(0);
     ranking = new Ranking();
 }
 
@@ -17,7 +18,7 @@ void Game::validate(Tile *temp, int c)
 
     if(c==1)
     {
-        if(temp->pieceObject && (temp->pieceObject->pieceColor==turn))
+        if(temp->pieceObject && (temp->pieceObject->getPieceColor()==turn))
         {
             retValue=temp->pieceObject->validate(temp->row,temp->col,1);
             orange();
@@ -58,9 +59,9 @@ void Game::validate(Tile *temp, int c)
                 click1->tileSwap(temp);
 
                 // if moving king then remeber new king position
-                if (temp->pieceObject->pieceName == 'K')
+                if (temp->pieceObject->getPieceName() == 'K')
                 {
-                    if (temp->pieceObject->pieceColor)
+                    if (temp->pieceObject->getPieceColor())
                         whiteKing->tileCopy(temp);
                     else
                         blackKing->tileCopy(temp);
@@ -77,7 +78,7 @@ void Game::validate(Tile *temp, int c)
                 {
                     for (j=0;j<=7;j++)
                     {
-                        if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->pieceColor!=temp->pieceObject->pieceColor && tile[i][j]->pieceObject->validate(i,j,1))
+                        if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->getPieceColor()!=temp->pieceObject->getPieceColor() && tile[i][j]->pieceObject->validate(i,j,1))
                         {
                             retValue = 1;
                             break;
@@ -95,7 +96,7 @@ void Game::validate(Tile *temp, int c)
                     label->setAlignment(Qt::AlignCenter);
                     label->setGeometry(572,420,250,50);
                     label->setStyleSheet("QLabel {background-color: yellow;}");
-                    if (temp->pieceObject->pieceColor)
+                    if (temp->pieceObject->getPieceColor())
                     {
                         label->setText("White player won");
                         if (player1 && player2)
@@ -153,21 +154,21 @@ void Game::orange()
 
 void Game::specialMoves(Tile *temp)
 {
-    if(tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject->pieceName == 'P' && temp->col != click1->col &&
-         click1->pieceObject -> pieceName == 'P' && !click1->pieceObject -> pieceColor)
+    if(tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
+         click1->pieceObject -> getPieceName() == 'P' && !click1->pieceObject -> getPieceColor())
     {
         tile[temp->row-1][temp->col] -> pieceObject = nullptr;
         tile[temp->row-1][temp->col] -> display();
         tile[temp->row-1][temp->col] -> tileDisplay();
     }
-    else if(tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject->pieceName == 'P' && temp->col != click1->col &&
-             click1->pieceObject -> pieceName == 'P' && click1->pieceObject -> pieceColor)
+    else if(tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
+             click1->pieceObject -> getPieceName() == 'P' && click1->pieceObject -> getPieceColor())
     {
         tile[temp->row+1][temp->col] -> pieceObject = nullptr;
         tile[temp->row+1][temp->col] -> display();
         tile[temp->row+1][temp->col] -> tileDisplay();
     }
-    else if(click1->pieceObject -> pieceName == 'K' && abs(temp->col-click1->col)>1)
+    else if(click1->pieceObject -> getPieceName() == 'K' && abs(temp->col-click1->col)>1)
     {
         if(temp->col>click1->col)
         {
@@ -186,23 +187,23 @@ void Game::specialMoves(Tile *temp)
             tile[temp->row][3] -> tileDisplay();
         }
     }
-    else if (click1->pieceObject->pieceName=='P'&&click1->pieceObject->pieceColor&&click1->row==1)
+    else if (click1->pieceObject->getPieceName()=='P'&&click1->pieceObject->getPieceColor()&&click1->row==1)
     {
-        click1->pieceObject->pieceName=whitePromotion;
+        click1->pieceObject = whitePromotion;
     }
-    else if (click1->pieceObject->pieceName=='P'&&!click1->pieceObject->pieceColor&&click1->row==6)
+    else if (click1->pieceObject->getPieceName()=='P'&&!click1->pieceObject->getPieceColor()&&click1->row==6)
     {
-        click1->pieceObject->pieceName=blackPromotion;
+        click1->pieceObject = blackPromotion;
     }
     if (temp->pieceObject)
     {
-        if((abs(temp->row-click1->row)>1 && click1->pieceObject->pieceName=='P') || click1->pieceObject->pieceName=='K'||click1->pieceObject->pieceName=='R')
+        if((abs(temp->row-click1->row)>1 && click1->pieceObject->getPieceName()=='P') || click1->pieceObject->getPieceName()=='K'||click1->pieceObject->getPieceName()=='R')
         {
-            temp->pieceObject->en = turnAll;
+            temp->pieceObject->setEn(turnAll);
         }
         else
         {
-            temp->pieceObject->en = 0;
+            temp->pieceObject->setEn(0);
         }
     }
 
@@ -217,7 +218,7 @@ int Game::check(int r,int c, int color)
     {
         for (j=0;j<8;j++)
         {
-            if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->pieceColor != color && (i!=r || j !=c))
+            if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->getPieceColor() != color && (i!=r || j !=c))
             {
                 tile[i][j]->pieceObject->validate(i,j,0);
                 for(k=tmp;k<max;k++)
@@ -234,4 +235,9 @@ int Game::check(int r,int c, int color)
     }
 
     return 0;
+}
+
+Tile* Game::getTile(int i, int j)
+{
+    return tile[i][j];
 }

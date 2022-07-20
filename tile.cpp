@@ -5,14 +5,15 @@ extern Game *chess;
 
 void Tile::mousePressEvent(QMouseEvent *event)
 {
-    chess->validate(this,++chess->count);
+    if (event)
+        chess->validate(this,++chess->count);
 }
 
 void Tile::display()
 {
 
     if(this->pieceObject)
-        this->setPixmap(QPixmap(QString::fromStdString(this->pieceObject->image_path)));
+        this->setPixmap(QPixmap(QString::fromStdString(this->pieceObject->getImagePath())));
     else
         this->clear();
 }

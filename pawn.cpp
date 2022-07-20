@@ -8,9 +8,9 @@ Pawn::Pawn(int pieceColor)
     this->pieceColor = pieceColor;
     this->pieceName = 'P';
     if (pieceColor)
-        this->image_path = ":/Images/pawn_white.svg";
+        this->imagePath = ":/Images/pawn_white.svg";
     else
-        this->image_path = ":/Images/pawn_black.svg";
+        this->imagePath = ":/Images/pawn_black.svg";
 }
 
 int Pawn::validate(int row, int col, int checker)
@@ -52,7 +52,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row-1>=0 && col-1>=0)
         {
-            if(chess->tile[row-1][col-1]->pieceObject && chess->tile[row-1][col-1]->pieceObject->pieceColor!=this->pieceColor)
+            if(chess->tile[row-1][col-1]->pieceObject && chess->tile[row-1][col-1]->pieceObject->getPieceColor()!=this->pieceColor)
             {
                 if(checker)
                 {
@@ -81,7 +81,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row-1>=0 && col+1<=7)
         {
-            if(chess->tile[row-1][col+1]->pieceObject && chess->tile[row-1][col+1]->pieceObject->pieceColor!=this->pieceColor)
+            if(chess->tile[row-1][col+1]->pieceObject && chess->tile[row-1][col+1]->pieceObject->getPieceColor()!=this->pieceColor)
             {
 
                 if(checker)
@@ -110,7 +110,7 @@ int Pawn::validate(int row, int col, int checker)
         }
         if(row==3 && col+1<=7 && checker)
         {
-            if(chess->tile[row][col+1]->pieceObject->pieceColor!=this->pieceColor && chess->tile[row][col+1]->pieceObject->pieceName=='P' && chess->tile[row][col+1]->pieceObject->en+1==chess->turnAll)
+            if(chess->tile[row][col+1]->pieceObject && chess->tile[row][col+1]->pieceObject->getPieceColor()!=this->pieceColor && chess->tile[row][col+1]->pieceObject->getPieceName()=='P' && chess->tile[row][col+1]->pieceObject->getPieceEn()+1==chess->turnAll)
             {
 
                 chess->tile[row][col]->tileSwap(chess->tile[row-1][col+1]);
@@ -130,7 +130,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row==3 && col-1>=0 && checker)
         {
-            if(chess->tile[row][col-1]->pieceObject->pieceColor!=this->pieceColor && chess->tile[row][col-1]->pieceObject->pieceName=='P' && chess->tile[row][col-1]->pieceObject->en+1==chess->turnAll)
+            if(chess->tile[row][col-1]->pieceObject && chess->tile[row][col-1]->pieceObject->getPieceColor()!=this->pieceColor && chess->tile[row][col-1]->pieceObject->getPieceName()=='P' && chess->tile[row][col-1]->pieceObject->getPieceEn()+1==chess->turnAll)
             {
                 chess->tile[row][col]->tileSwap(chess->tile[row-1][col-1]);
                 tmpPiece = chess->tile[row][col-1]->pieceObject;
@@ -177,7 +177,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row+1<=7 && col-1>=0)
         {
-            if(chess->tile[row+1][col-1]->pieceObject && chess->tile[row+1][col-1]->pieceObject->pieceColor!=this->pieceColor)
+            if(chess->tile[row+1][col-1]->pieceObject && chess->tile[row+1][col-1]->pieceObject->getPieceColor()!=this->pieceColor)
             {
                 if(checker)
                 {
@@ -206,7 +206,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row+1<=7 && col+1<=7)
         {
-            if(chess->tile[row+1][col+1]->pieceObject && chess->tile[row+1][col+1]->pieceObject->pieceColor!=this->pieceColor)
+            if(chess->tile[row+1][col+1]->pieceObject && chess->tile[row+1][col+1]->pieceObject->getPieceColor()!=this->pieceColor)
             {
                 if(checker)
                 {
@@ -235,7 +235,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row==4 && col+1<=7  && checker)
         {
-            if(chess->tile[row][col+1]->pieceObject && chess->tile[row][col+1]->pieceObject->pieceColor!=this->pieceColor && chess->tile[row][col+1]->pieceObject->pieceName=='P' && chess->tile[row][col+1]->pieceObject->en+1==chess->turnAll)
+            if(chess->tile[row][col+1]->pieceObject && chess->tile[row][col+1]->pieceObject->getPieceColor()!=this->pieceColor && chess->tile[row][col+1]->pieceObject->getPieceName()=='P' && chess->tile[row][col+1]->pieceObject->getPieceEn()+1==chess->turnAll)
             {
                 chess->tile[row][col]->tileSwap(chess->tile[row+1][col+1]);
                 tmpPiece = chess->tile[row][col+1]->pieceObject;
@@ -254,7 +254,7 @@ int Pawn::validate(int row, int col, int checker)
 
         if(row==4 && col-1>=0  && checker)
         {
-            if(chess->tile[row][col-1]->pieceObject && chess->tile[row][col-1]->pieceObject->pieceColor!=this->pieceColor && chess->tile[row][col-1]->pieceObject->pieceName=='P' && chess->tile[row][col-1]->pieceObject->en+1==chess->turnAll)
+            if(chess->tile[row][col-1]->pieceObject && chess->tile[row][col-1]->pieceObject->getPieceColor()!=this->pieceColor && chess->tile[row][col-1]->pieceObject->getPieceName()=='P' && chess->tile[row][col-1]->pieceObject->getPieceEn()+1==chess->turnAll)
             {
                 chess->tile[row][col]->tileSwap(chess->tile[row+1][col-1]);
                 tmpPiece = chess->tile[row][col-1]->pieceObject;
