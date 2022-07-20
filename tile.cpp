@@ -45,4 +45,35 @@ void Tile::tileCopy(Tile *temp)
     this->col=temp->col;
 }
 
+Piece* Tile::getPieceObject()
+{
+    return pieceObject;
+}
 
+void Tile::setPieceObject(Piece *newPiece)
+{
+    pieceObject = newPiece;
+}
+
+int Tile::getRow()
+{
+    return row;
+}
+
+int Tile::getCol()
+{
+    return col;
+}
+
+int Tile::getTileNum()
+{
+    return tileNum;
+}
+
+void Tile::setParameters(int tileColor, int row, int col, int tileNum)
+{
+    this->tileColor = tileColor;
+    this->row = row;
+    this->col = col;
+    this->tileNum = tileNum;
+}

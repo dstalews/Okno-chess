@@ -250,10 +250,7 @@ void MainWindow::chessBoard()
         for(j=0;j<8;j++)
         {
             chess->newTile(i,j,this);
-            chess->getTile(i,j)->tileColor=(i+j)%2;
-            chess->getTile(i,j)->row=i;
-            chess->getTile(i,j)->col=j;
-            chess->getTile(i,j)->tileNum=k++;
+            chess->getTile(i,j)->setParameters((i+j)%2,i,j,k++);
             chess->getTile(i,j)->tileDisplay();
             chess->getTile(i,j)->setGeometry(hor,ver,64,64);
             hor+=64;

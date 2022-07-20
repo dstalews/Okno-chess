@@ -17,9 +17,9 @@ void Game::validate(Tile *temp)
 
     if(c==1)
     {
-        if(temp->pieceObject && (temp->pieceObject->getPieceColor()==turn))
+        if(temp->getPieceObject() && (temp->getPieceObject()->getPieceColor()==turn))
         {
-            retValue=temp->pieceObject->validate(temp->row,temp->col,1);
+            retValue=temp->getPieceObject()->validate(temp->getRow(),temp->getCol(),1);
             orange();
             if(retValue)
             {
@@ -41,7 +41,7 @@ void Game::validate(Tile *temp)
     else
     {
 
-        if(temp->tileNum==click1->tileNum)
+        if(temp->getTileNum()==click1->getTileNum())
         {
             click1->tileDisplay();
             disOrange();
@@ -51,16 +51,16 @@ void Game::validate(Tile *temp)
 
         for(i=0;i<max;i++)
         {
-            if(temp->tileNum==exp[i])
+            if(temp->getTileNum()==exp[i])
             {
                 specialMoves(temp);
 
                 click1->tileSwap(temp);
 
                 // if moving king then remeber new king position
-                if (temp->pieceObject->getPieceName() == 'K')
+                if (temp->getPieceObject()->getPieceName() == 'K')
                 {
-                    if (temp->pieceObject->getPieceColor())
+                    if (temp->getPieceObject()->getPieceColor())
                         whiteKing->tileCopy(temp);
                     else
                         blackKing->tileCopy(temp);
@@ -77,7 +77,7 @@ void Game::validate(Tile *temp)
                 {
                     for (j=0;j<=7;j++)
                     {
-                        if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->getPieceColor()!=temp->pieceObject->getPieceColor() && tile[i][j]->pieceObject->validate(i,j,1))
+                        if (tile[i][j]->getPieceObject() && tile[i][j]->getPieceObject()->getPieceColor()!=temp->getPieceObject()->getPieceColor() && tile[i][j]->getPieceObject()->validate(i,j,1))
                         {
                             retValue = 1;
                             break;
@@ -95,7 +95,7 @@ void Game::validate(Tile *temp)
                     label->setAlignment(Qt::AlignCenter);
                     label->setGeometry(572,420,250,50);
                     label->setStyleSheet("QLabel {background-color: yellow;}");
-                    if (temp->pieceObject->getPieceColor())
+                    if (temp->getPieceObject()->getPieceColor())
                     {
                         label->setText("White player won");
                         if (player1 && player2)
@@ -153,58 +153,58 @@ void Game::orange()
 
 void Game::specialMoves(Tile *temp)
 {
-    if(temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && tile[temp->row-1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
-         click1->pieceObject -> getPieceName() == 'P' && !click1->pieceObject -> getPieceColor())
+    if(temp->getRow()-1 >= 0 && tile[temp->getRow()-1][temp->getCol()]->getPieceObject() && temp->getPieceObject() == nullptr && tile[temp->getRow()-1][temp->getCol()]->getPieceObject()->getPieceName() == 'P' && temp->getCol() != click1->getCol() &&
+         click1->getPieceObject() -> getPieceName() == 'P' && !click1->getPieceObject() -> getPieceColor())
     {
-        tile[temp->row-1][temp->col] -> pieceObject = nullptr;
-        tile[temp->row-1][temp->col] -> display();
-        tile[temp->row-1][temp->col] -> tileDisplay();
+        tile[temp->getRow()-1][temp->getCol()] -> setPieceObject(nullptr);
+        tile[temp->getRow()-1][temp->getCol()] -> display();
+        tile[temp->getRow()-1][temp->getCol()] -> tileDisplay();
     }
-    else if(temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && tile[temp->row+1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
-             click1->pieceObject -> getPieceName() == 'P' && click1->pieceObject -> getPieceColor())
+    else if(temp->getRow()+1 <= 7 && tile[temp->getRow()+1][temp->getCol()]->getPieceObject() && temp->getPieceObject()==nullptr && tile[temp->getRow()+1][temp->getCol()]->getPieceObject()->getPieceName() == 'P' && temp->getCol() != click1->getCol() &&
+             click1->getPieceObject() -> getPieceName() == 'P' && click1->getPieceObject() -> getPieceColor())
     {
-        tile[temp->row+1][temp->col] -> pieceObject = nullptr;
-        tile[temp->row+1][temp->col] -> display();
-        tile[temp->row+1][temp->col] -> tileDisplay();
+        tile[temp->getRow()+1][temp->getCol()] -> setPieceObject(nullptr);
+        tile[temp->getRow()+1][temp->getCol()] -> display();
+        tile[temp->getRow()+1][temp->getCol()] -> tileDisplay();
     }
-    else if(click1->pieceObject -> getPieceName() == 'K' && abs(temp->col-click1->col)>1)
+    else if(click1->getPieceObject() -> getPieceName() == 'K' && abs(temp->getCol()-click1->getCol())>1)
     {
-        if(temp->col>click1->col)
+        if(temp->getCol()>click1->getCol())
         {
-            tile[temp->row][7] -> tileSwap(tile[temp->row][5]);
-            tile[temp->row][7] -> display();
-            tile[temp->row][7] -> tileDisplay();
-            tile[temp->row][5] -> display();
-            tile[temp->row][5] -> tileDisplay();
+            tile[temp->getRow()][7] -> tileSwap(tile[temp->getRow()][5]);
+            tile[temp->getRow()][7] -> display();
+            tile[temp->getRow()][7] -> tileDisplay();
+            tile[temp->getRow()][5] -> display();
+            tile[temp->getRow()][5] -> tileDisplay();
         }
-        if(temp->col<click1->col)
+        if(temp->getCol()<click1->getCol())
         {
-            tile[temp->row][0] -> tileSwap(tile[temp->row][3]);
-            tile[temp->row][0] -> display();
-            tile[temp->row][0] -> tileDisplay();
-            tile[temp->row][3] -> display();
-            tile[temp->row][3] -> tileDisplay();
-        }
-    }
-    else if (click1->pieceObject->getPieceName()=='P'&&click1->pieceObject->getPieceColor()&&click1->row==1)
-    {
-        click1->pieceObject = whitePromotion;
-    }
-    else if (click1->pieceObject->getPieceName()=='P'&&!click1->pieceObject->getPieceColor()&&click1->row==6)
-    {
-        click1->pieceObject = blackPromotion;
-    }
-    if (temp->pieceObject)
-    {
-        if((abs(temp->row-click1->row)>1 && click1->pieceObject->getPieceName()=='P') || click1->pieceObject->getPieceName()=='K'||click1->pieceObject->getPieceName()=='R')
-        {
-            temp->pieceObject->setEn(turnAll);
-        }
-        else
-        {
-            temp->pieceObject->setEn(0);
+            tile[temp->getRow()][0] -> tileSwap(tile[temp->getRow()][3]);
+            tile[temp->getRow()][0] -> display();
+            tile[temp->getRow()][0] -> tileDisplay();
+            tile[temp->getRow()][3] -> display();
+            tile[temp->getRow()][3] -> tileDisplay();
         }
     }
+    else if (click1->getPieceObject()->getPieceName()=='P'&&click1->getPieceObject()->getPieceColor()&&click1->getRow()==1)
+    {
+        click1->setPieceObject(whitePromotion);
+    }
+    else if (click1->getPieceObject()->getPieceName()=='P'&&!click1->getPieceObject()->getPieceColor()&&click1->getRow()==6)
+    {
+        click1->setPieceObject(blackPromotion);
+    }
+
+
+    if((abs(temp->getRow()-click1->getRow())>1 && click1->getPieceObject()->getPieceName()=='P') || click1->getPieceObject()->getPieceName()=='K'||click1->getPieceObject()->getPieceName()=='R')
+    {
+        click1->getPieceObject()->setEn(turnAll);
+    }
+    else
+    {
+        click1->getPieceObject()->setEn(0);
+    }
+
 
 }
 
@@ -217,9 +217,9 @@ int Game::check(int r,int c, int color)
     {
         for (j=0;j<8;j++)
         {
-            if (tile[i][j]->pieceObject && tile[i][j]->pieceObject->getPieceColor() != color && (i!=r || j !=c))
+            if (tile[i][j]->getPieceObject() && tile[i][j]->getPieceObject()->getPieceColor() != color && (i!=r || j !=c))
             {
-                tile[i][j]->pieceObject->validate(i,j,0);
+                tile[i][j]->getPieceObject()->validate(i,j,0);
                 for(k=tmp;k<max;k++)
                 {
                     if (exp[k]/8 == r && exp[k]%8 == c)
