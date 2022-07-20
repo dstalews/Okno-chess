@@ -24,52 +24,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r-->0)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -80,52 +80,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r++<7)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -136,52 +136,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(c++<7)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -192,52 +192,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(c-->0)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -248,52 +248,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r-->0 && c++<7)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -304,52 +304,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r-->0 && c-->0)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -360,52 +360,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r++<7 && c++<7)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
@@ -416,52 +416,52 @@ int Queen::validate(int row, int col, int checker)
     c=col;
     while(r++<7 && c-->0)
     {
-        if(!chess->tile[r][c]->pieceObject)
+        if(!chess->getTile(r,c)->pieceObject)
         {
             if(checker)
             {
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()==this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()==this->pieceColor)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;
         }
 
-        else if(chess->tile[r][c]->pieceObject->getPieceColor()!=this->pieceColor)
+        else if(chess->getTile(r,c)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r][c]);
-                chess->tile[row][col]->tileSwap(chess->tile[r][c]);
+                tmp->tileCopy(chess->getTile(r,c));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r,c));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r][c]->tileSwap(chess->tile[row][col]);
-                chess->tile[r][c]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r,c)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r,c)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r][c]->tileNum;
+                chess->newExp(chess->getTile(r,c)->tileNum);
                 retVal=1;
             }
             break;

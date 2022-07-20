@@ -6,7 +6,7 @@ extern Game *chess;
 void Tile::mousePressEvent(QMouseEvent *event)
 {
     if (event)
-        chess->validate(this,++chess->count);
+        chess->validate(this);
 }
 
 void Tile::display()

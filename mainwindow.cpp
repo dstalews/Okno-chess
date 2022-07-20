@@ -1,17 +1,12 @@
 #include "mainwindow.h"
 #include "game.h"
-#include "bishop.h"
-#include "horse.h"
-#include "king.h"
-#include "pawn.h"
-#include "queen.h"
-#include "rook.h"
 
 extern Game *chess;
 
 MainWindow::MainWindow(QWidget* pParent) : QMainWindow(pParent) {
     this->setGeometry(0,0,850,552);
-    chess->label = new QLabel(this);
+    chess->newLabel(this);
+    chess->resetVariables();
     this->buttons();
     this->chessBoard();
 };
@@ -20,12 +15,7 @@ void MainWindow::slotReboot() {
 
     qDebug() << "Performing application reboot...";
     // reset global variables
-    chess->count=0;
-    chess->turn=1;
-    chess->max=0;
-    chess->turnAll=1;
-    chess->whitePromotion= new Queen(1);
-    chess->blackPromotion = new Queen(0);
+    chess->resetVariables();
     qApp->exit( EXIT_CODE_REBOOT );
 }
 
@@ -41,8 +31,8 @@ void MainWindow::slotShowRanking() {
 
     QLabel *text = new QLabel(ranks);
     QFont f( "Arial", 16, QFont::Bold);
-    if (chess->ranking->getRanking() != "")
-        text->setText(QString::fromStdString(chess->ranking->getRanking()));
+    if (chess->getRanks()->getRanking() != "")
+        text->setText(QString::fromStdString(chess->getRanks()->getRanking()));
     else
         text->setText(" ");
     text->setGeometry(0,0,350,500);
@@ -53,7 +43,7 @@ void MainWindow::slotShowRanking() {
 
 void MainWindow::slotWhiteRook() {
 
-    chess->whitePromotion = new Rook(1);
+    chess->setPromotion('R',1);
     whiteRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -63,7 +53,7 @@ void MainWindow::slotWhiteRook() {
 
 void MainWindow::slotWhiteHorse() {
 
-    chess->whitePromotion = new Horse(1);
+    chess->setPromotion('H',1);
     whiteHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteRook->setStyleSheet("QPushButton {background-color: none;}");
@@ -73,7 +63,7 @@ void MainWindow::slotWhiteHorse() {
 
 void MainWindow::slotWhiteBishop() {
 
-    chess->whitePromotion = new Bishop(1);
+    chess->setPromotion('B',1);
     whiteBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteQueen->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -83,7 +73,7 @@ void MainWindow::slotWhiteBishop() {
 
 void MainWindow::slotWhiteQueen() {
 
-    chess->whitePromotion = new Queen(1);
+    chess->setPromotion('Q',1);
     whiteQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     whiteRook->setStyleSheet("QPushButton {background-color: none;}");
     whiteHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -93,7 +83,7 @@ void MainWindow::slotWhiteQueen() {
 
 void MainWindow::slotBlackRook() {
 
-    chess->blackPromotion = new Rook(0);
+    chess->setPromotion('R',0);
     blackRook->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -103,7 +93,7 @@ void MainWindow::slotBlackRook() {
 
 void MainWindow::slotBlackHorse() {
 
-    chess->blackPromotion = new Horse(0);
+    chess->setPromotion('H',0);
     blackHorse->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackRook->setStyleSheet("QPushButton {background-color: none;}");
@@ -113,7 +103,7 @@ void MainWindow::slotBlackHorse() {
 
 void MainWindow::slotBlackBishop() {
 
-    chess->blackPromotion = new Bishop(0);
+    chess->setPromotion('B',0);
     blackBishop->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackQueen->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -123,7 +113,7 @@ void MainWindow::slotBlackBishop() {
 
 void MainWindow::slotBlackQueen() {
 
-    chess->blackPromotion = new Queen(0);
+    chess->setPromotion('Q',0);
     blackQueen->setStyleSheet("QPushButton {background-color: rgb(106, 228, 126);}");
     blackRook->setStyleSheet("QPushButton {background-color: none;}");
     blackHorse->setStyleSheet("QPushButton {background-color: none;}");
@@ -133,12 +123,12 @@ void MainWindow::slotBlackQueen() {
 
 void MainWindow::slotSavePlayer1Name() {
 
-    if (typeP1name->isModified() && (!chess->player2 || chess->player2->getPlayerName().compare(typeP1name->text().toStdString()) != 0))
+    if (typeP1name->isModified() && (!chess->getPlayer(2) || chess->getPlayer(2)->getPlayerName().compare(typeP1name->text().toStdString()) != 0))
     {
         std::string str = typeP1name->text().toStdString();
         str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-        chess->player1 = new Player(str,chess->ranking->getPlayerPoints(str));
-        player1Name->setText("Name: " +QString::fromStdString(chess->player1->getPlayerName()) + "       LP: "+QString::fromStdString(std::to_string(chess->player1->getPlayerPoints())));
+        chess->setPlayer(1,str,chess->getRanks()->getPlayerPoints(str));
+        player1Name->setText("Name: " +QString::fromStdString(chess->getPlayer(1)->getPlayerName()) + "       LP: "+QString::fromStdString(std::to_string(chess->getPlayer(1)->getPlayerPoints())));
         player1Name->setAlignment(Qt::AlignCenter);
         player1Name->setFrameStyle(QFrame::NoFrame);
         player1Name->setGeometry(572,120,250,50);
@@ -150,12 +140,12 @@ void MainWindow::slotSavePlayer1Name() {
 
 void MainWindow::slotSavePlayer2Name() {
 
-    if (typeP2name->isModified() && (!chess->player1 || chess->player1->getPlayerName().compare(typeP2name->text().toStdString()) != 0))
+    if (typeP2name->isModified() && (!chess->getPlayer(1) || chess->getPlayer(1)->getPlayerName().compare(typeP2name->text().toStdString()) != 0))
     {
         std::string str = typeP2name->text().toStdString();
         str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-        chess->player2 = new Player(str,chess->ranking->getPlayerPoints(str));
-        player2Name->setText("Name: " +QString::fromStdString(chess->player2->getPlayerName()) + "       LP: "+QString::fromStdString(std::to_string(chess->player2->getPlayerPoints())));
+        chess->setPlayer(2,str,chess->getRanks()->getPlayerPoints(str));
+        player2Name->setText("Name: " +QString::fromStdString(chess->getPlayer(2)->getPlayerName()) + "       LP: "+QString::fromStdString(std::to_string(chess->getPlayer(2)->getPlayerPoints())));
         player2Name->setAlignment(Qt::AlignCenter);
         player2Name->setFrameStyle(QFrame::NoFrame);
         player2Name->setGeometry(572,270,250,50);
@@ -243,8 +233,6 @@ void MainWindow::outline(int xPos, int yPos, int Pos)
 void MainWindow::chessBoard()
 {
     int i,j,k=0,hor,ver;
-    chess->whiteKing = new Tile();
-    chess->blackKing = new Tile();
 
     //borderDisplay
     {
@@ -261,13 +249,13 @@ void MainWindow::chessBoard()
         hor=20;
         for(j=0;j<8;j++)
         {
-            chess->tile[i][j] = new Tile(this);
-            chess->tile[i][j]->tileColor=(i+j)%2;
-            chess->tile[i][j]->row=i;
-            chess->tile[i][j]->col=j;
-            chess->tile[i][j]->tileNum=k++;
-            chess->tile[i][j]->tileDisplay();
-            chess->tile[i][j]->setGeometry(hor,ver,64,64);
+            chess->newTile(i,j,this);
+            chess->getTile(i,j)->tileColor=(i+j)%2;
+            chess->getTile(i,j)->row=i;
+            chess->getTile(i,j)->col=j;
+            chess->getTile(i,j)->tileNum=k++;
+            chess->getTile(i,j)->tileDisplay();
+            chess->getTile(i,j)->setGeometry(hor,ver,64,64);
             hor+=64;
         }
         ver+=64;
@@ -276,58 +264,58 @@ void MainWindow::chessBoard()
     //black pawns
     for(j=0;j<8;j++)
     {
-        chess->tile[1][j]->setPiece(new Pawn(0));
-        chess->tile[1][j]->display();
+        chess->getTile(1,j)->setPiece(new Pawn(0));
+        chess->getTile(1,j)->display();
 
     }
 
     //white pawns
     for(j=0;j<8;j++)
     {
-        chess->tile[6][j]->setPiece(new Pawn(1));
-        chess->tile[6][j]->display();
+        chess->getTile(6,j)->setPiece(new Pawn(1));
+        chess->getTile(6,j)->display();
     }
 
     {
-    chess->tile[0][0]->setPiece(new Rook(0));
-    chess->tile[0][0]->display();
-    chess->tile[0][1]->setPiece(new Horse(0));
-    chess->tile[0][1]->display();
-    chess->tile[0][2]->setPiece(new Bishop(0));
-    chess->tile[0][2]->display();
-    chess->tile[0][3]->setPiece(new Queen(0));
-    chess->tile[0][3]->display();
-    chess->tile[0][4]->setPiece(new King(0));
-    chess->tile[0][4]->display();
-    chess->tile[0][5]->setPiece(new Bishop(0));
-    chess->tile[0][5]->display();
-    chess->tile[0][6]->setPiece(new Horse(0));
-    chess->tile[0][6]->display();
-    chess->tile[0][7]->setPiece(new Rook(0));
-    chess->tile[0][7]->display();
+    chess->getTile(0,0)->setPiece(new Rook(0));
+    chess->getTile(0,0)->display();
+    chess->getTile(0,1)->setPiece(new Horse(0));
+    chess->getTile(0,1)->display();
+    chess->getTile(0,2)->setPiece(new Bishop(0));
+    chess->getTile(0,2)->display();
+    chess->getTile(0,3)->setPiece(new Queen(0));
+    chess->getTile(0,3)->display();
+    chess->getTile(0,4)->setPiece(new King(0));
+    chess->getTile(0,4)->display();
+    chess->getTile(0,5)->setPiece(new Bishop(0));
+    chess->getTile(0,5)->display();
+    chess->getTile(0,6)->setPiece(new Horse(0));
+    chess->getTile(0,6)->display();
+    chess->getTile(0,7)->setPiece(new Rook(0));
+    chess->getTile(0,7)->display();
     }
 
 
     {
-    chess->tile[7][0]->setPiece(new Rook(1));
-    chess->tile[7][0]->display();
-    chess->tile[7][1]->setPiece(new Horse(1));
-    chess->tile[7][1]->display();
-    chess->tile[7][2]->setPiece(new Bishop(1));
-    chess->tile[7][2]->display();
-    chess->tile[7][3]->setPiece(new Queen(1));
-    chess->tile[7][3]->display();
-    chess->tile[7][4]->setPiece(new King(1));
-    chess->tile[7][4]->display();
-    chess->tile[7][5]->setPiece(new Bishop(1));
-    chess->tile[7][5]->display();
-    chess->tile[7][6]->setPiece(new Horse(1));
-    chess->tile[7][6]->display();
-    chess->tile[7][7]->setPiece(new Rook(1));
-    chess->tile[7][7]->display();
+    chess->getTile(7,0)->setPiece(new Rook(1));
+    chess->getTile(7,0)->display();
+    chess->getTile(7,1)->setPiece(new Horse(1));
+    chess->getTile(7,1)->display();
+    chess->getTile(7,2)->setPiece(new Bishop(1));
+    chess->getTile(7,2)->display();
+    chess->getTile(7,3)->setPiece(new Queen(1));
+    chess->getTile(7,3)->display();
+    chess->getTile(7,4)->setPiece(new King(1));
+    chess->getTile(7,4)->display();
+    chess->getTile(7,5)->setPiece(new Bishop(1));
+    chess->getTile(7,5)->display();
+    chess->getTile(7,6)->setPiece(new Horse(1));
+    chess->getTile(7,6)->display();
+    chess->getTile(7,7)->setPiece(new Rook(1));
+    chess->getTile(7,7)->display();
     }
     //remember Kings positions
-    chess->blackKing->tileCopy(chess->tile[0][4]);
-    chess->whiteKing->tileCopy(chess->tile[7][4]);
+    chess->getBlackKing()->tileCopy(chess->getTile(0,4));
+    chess->getWhiteKing()->tileCopy(chess->getTile(7,4));
 }
 

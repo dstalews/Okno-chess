@@ -1,5 +1,4 @@
 #include "game.h"
-#include "queen.h"
 
 Game::Game()
 {
@@ -12,9 +11,9 @@ Game::Game()
     ranking = new Ranking();
 }
 
-void Game::validate(Tile *temp, int c)
+void Game::validate(Tile *temp)
 {
-    int retValue,i,j;
+    int retValue,i,j,c=++count;
 
     if(c==1)
     {
@@ -154,14 +153,14 @@ void Game::orange()
 
 void Game::specialMoves(Tile *temp)
 {
-    if(tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
+    if(temp->row-1 >= 0 && tile[temp->row-1][temp->col]->pieceObject && temp->pieceObject == nullptr && tile[temp->row-1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
          click1->pieceObject -> getPieceName() == 'P' && !click1->pieceObject -> getPieceColor())
     {
         tile[temp->row-1][temp->col] -> pieceObject = nullptr;
         tile[temp->row-1][temp->col] -> display();
         tile[temp->row-1][temp->col] -> tileDisplay();
     }
-    else if(tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
+    else if(temp->row+1 <= 7 && tile[temp->row+1][temp->col]->pieceObject && temp->pieceObject==nullptr && tile[temp->row+1][temp->col]->pieceObject->getPieceName() == 'P' && temp->col != click1->col &&
              click1->pieceObject -> getPieceName() == 'P' && click1->pieceObject -> getPieceColor())
     {
         tile[temp->row+1][temp->col] -> pieceObject = nullptr;
@@ -240,4 +239,93 @@ int Game::check(int r,int c, int color)
 Tile* Game::getTile(int i, int j)
 {
     return tile[i][j];
+}
+
+void Game::newTile(int i, int j, QWidget* pParent)
+{
+    tile[i][j]= new Tile(pParent);
+}
+
+void Game::newExp(int tileNum)
+{
+    exp[max++]=tileNum;
+}
+
+int Game::getTurnAll()
+{
+    return turnAll;
+}
+
+void Game::resetVariables()
+{
+    count=0;
+    turn=1;
+    max=0;
+    turnAll=1;
+    whiteKing = new Tile();
+    blackKing = new Tile();
+    whitePromotion= new Queen(1);
+    blackPromotion = new Queen(0);
+}
+
+Tile* Game::getWhiteKing()
+{
+    return whiteKing;
+}
+
+Tile* Game::getBlackKing()
+{
+    return blackKing;
+}
+
+void Game::newLabel(QWidget* pParent)
+{
+    label = new QLabel(pParent);
+}
+
+Ranking* Game::getRanks()
+{
+    return ranking;
+}
+
+void Game::setPromotion(char pieceName, int pieceColor)
+{
+    if (!pieceColor)
+    {
+        if (pieceName == 'Q')
+            blackPromotion = new Queen(pieceColor);
+        else if (pieceName == 'B')
+            blackPromotion = new Bishop(pieceColor);
+        else if (pieceName == 'H')
+            blackPromotion = new Horse(pieceColor);
+        else if (pieceName == 'R')
+            blackPromotion = new Rook(pieceColor);
+    }
+    else if (pieceColor)
+    {
+        if (pieceName == 'Q')
+            whitePromotion = new Queen(pieceColor);
+        else if (pieceName == 'B')
+            whitePromotion = new Bishop(pieceColor);
+        else if (pieceName == 'H')
+            whitePromotion = new Horse(pieceColor);
+        else if (pieceName == 'R')
+            whitePromotion = new Rook(pieceColor);
+    }
+}
+
+Player* Game::getPlayer(int i)
+{
+    if (i==1)
+        return player1;
+    else
+        return player2;
+}
+
+void Game::setPlayer(int i, std::string PlayerName, int points)
+{
+    if (i==1)
+        player1 = new Player(PlayerName,points);
+    else
+        player2 = new Player(PlayerName,points);
 }

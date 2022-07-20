@@ -24,23 +24,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-2>=0 && c-1>=0)
     {
-        if(chess->tile[r-2][c-1]->pieceObject==nullptr || chess->tile[r-2][c-1]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r-2,c-1)->pieceObject==nullptr || chess->getTile(r-2,c-1)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r-2][c-1]);
-                chess->tile[row][col]->tileSwap(chess->tile[r-2][c-1]);
+                tmp->tileCopy(chess->getTile(r-2,c-1));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r-2,c-1));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r-2][c-1]->tileSwap(chess->tile[row][col]);
-                chess->tile[r-2][c-1]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r-2,c-1)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r-2,c-1)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r-2][c-1]->tileNum;
+                chess->newExp(chess->getTile(r-2,c-1)->tileNum);
                 retVal=1;
             }
         }
@@ -48,7 +48,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r-2][c-1]->tileNum;
+                chess->newExp(chess->getTile(r-2,c-1)->tileNum);
                 retVal=1;
             }
         }
@@ -56,23 +56,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-2>=0 && c+1<=7)
     {
-        if(chess->tile[r-2][c+1]->pieceObject==nullptr||chess->tile[r-2][c+1]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r-2,c+1)->pieceObject==nullptr||chess->getTile(r-2,c+1)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r-2][c+1]);
-                chess->tile[row][col]->tileSwap(chess->tile[r-2][c+1]);
+                tmp->tileCopy(chess->getTile(r-2,c+1));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r-2,c+1));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r-2][c+1]->tileSwap(chess->tile[row][col]);
-                chess->tile[r-2][c+1]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r-2,c+1)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r-2,c+1)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r-2][c+1]->tileNum;
+                chess->newExp(chess->getTile(r-2,c+1)->tileNum);
                 retVal=1;
             }
         }
@@ -80,7 +80,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r-2][c+1]->tileNum;
+                chess->newExp(chess->getTile(r-2,c+1)->tileNum);
                 retVal=1;
             }
         }
@@ -88,23 +88,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-1>=0 && c-2>=0)
     {
-        if(chess->tile[r-1][c-2]->pieceObject==nullptr||chess->tile[r-1][c-2]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r-1,c-2)->pieceObject==nullptr||chess->getTile(r-1,c-2)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r-1][c-2]);
-                chess->tile[row][col]->tileSwap(chess->tile[r-1][c-2]);
+                tmp->tileCopy(chess->getTile(r-1,c-2));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r-1,c-2));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r-1][c-2]->tileSwap(chess->tile[row][col]);
-                chess->tile[r-1][c-2]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r-1,c-2)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r-1,c-2)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r-1][c-2]->tileNum;
+                chess->newExp(chess->getTile(r-1,c-2)->tileNum);
                 retVal=1;
             }
         }
@@ -112,7 +112,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r-1][c-2]->tileNum;
+                chess->newExp(chess->getTile(r-1,c-2)->tileNum);
                 retVal=1;
             }
         }
@@ -120,23 +120,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r-1>=0 && c+2<=7)
     {
-        if(chess->tile[r-1][c+2]->pieceObject==nullptr || chess->tile[r-1][c+2]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r-1,c+2)->pieceObject==nullptr || chess->getTile(r-1,c+2)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r-1][c+2]);
-                chess->tile[row][col]->tileSwap(chess->tile[r-1][c+2]);
+                tmp->tileCopy(chess->getTile(r-1,c+2));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r-1,c+2));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r-1][c+2]->tileSwap(chess->tile[row][col]);
-                chess->tile[r-1][c+2]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r-1,c+2)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r-1,c+2)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r-1][c+2]->tileNum;
+                chess->newExp(chess->getTile(r-1,c+2)->tileNum);
                 retVal=1;
             }
         }
@@ -144,7 +144,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r-1][c+2]->tileNum;
+                chess->newExp(chess->getTile(r-1,c+2)->tileNum);
                 retVal=1;
             }
         }
@@ -152,23 +152,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+2<=7 && c+1<=7)
     {
-        if(chess->tile[r+2][c+1]->pieceObject == nullptr || chess->tile[r+2][c+1]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r+2,c+1)->pieceObject == nullptr || chess->getTile(r+2,c+1)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r+2][c+1]);
-                chess->tile[row][col]->tileSwap(chess->tile[r+2][c+1]);
+                tmp->tileCopy(chess->getTile(r+2,c+1));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r+2,c+1));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r+2][c+1]->tileSwap(chess->tile[row][col]);
-                chess->tile[r+2][c+1]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r+2,c+1)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r+2,c+1)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r+2][c+1]->tileNum;
+                chess->newExp(chess->getTile(r+2,c+1)->tileNum);
                 retVal=1;
             }
         }
@@ -176,7 +176,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r+2][c+1]->tileNum;
+                chess->newExp(chess->getTile(r+2,c+1)->tileNum);
                 retVal=1;
             }
         }
@@ -184,23 +184,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+2<=7 && c-1>=0)
     {
-        if(chess->tile[r+2][c-1]->pieceObject==nullptr || chess->tile[r+2][c-1]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r+2,c-1)->pieceObject==nullptr || chess->getTile(r+2,c-1)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r+2][c-1]);
-                chess->tile[row][col]->tileSwap(chess->tile[r+2][c-1]);
+                tmp->tileCopy(chess->getTile(r+2,c-1));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r+2,c-1));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r+2][c-1]->tileSwap(chess->tile[row][col]);
-                chess->tile[r+2][c-1]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r+2,c-1)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r+2,c-1)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r+2][c-1]->tileNum;
+                chess->newExp(chess->getTile(r+2,c-1)->tileNum);
                 retVal=1;
             }
         }
@@ -208,7 +208,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r+2][c-1]->tileNum;
+                chess->newExp(chess->getTile(r+2,c-1)->tileNum);
                 retVal=1;
             }
         }
@@ -216,23 +216,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+1<=7 && c-2>=0)
     {
-        if(chess->tile[r+1][c-2]->pieceObject==nullptr||chess->tile[r+1][c-2]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r+1,c-2)->pieceObject==nullptr||chess->getTile(r+1,c-2)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r+1][c-2]);
-                chess->tile[row][col]->tileSwap(chess->tile[r+1][c-2]);
+                tmp->tileCopy(chess->getTile(r+1,c-2));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r+1,c-2));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r+1][c-2]->tileSwap(chess->tile[row][col]);
-                chess->tile[r+1][c-2]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r+1,c-2)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r+1,c-2)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r+1][c-2]->tileNum;
+                chess->newExp(chess->getTile(r+1,c-2)->tileNum);
                 retVal=1;
             }
         }
@@ -240,7 +240,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r+1][c-2]->tileNum;
+                chess->newExp(chess->getTile(r+1,c-2)->tileNum);
                 retVal=1;
             }
         }
@@ -248,23 +248,23 @@ int Horse::validate(int row, int col, int checker)
 
     if(r+1<=7 && c+2<=7)
     {
-        if(chess->tile[r+1][c+2]->pieceObject==nullptr||chess->tile[r+1][c+2]->pieceObject->getPieceColor()!=this->pieceColor)
+        if(chess->getTile(r+1,c+2)->pieceObject==nullptr||chess->getTile(r+1,c+2)->pieceObject->getPieceColor()!=this->pieceColor)
         {
             if(checker)
             {
-                tmp->tileCopy(chess->tile[r+1][c+2]);
-                chess->tile[row][col]->tileSwap(chess->tile[r+1][c+2]);
+                tmp->tileCopy(chess->getTile(r+1,c+2));
+                chess->getTile(row,col)->tileSwap(chess->getTile(r+1,c+2));
                 if (this->pieceColor)
-                    wcheck = chess->check(chess->whiteKing->row,chess->whiteKing->col,this->pieceColor);
+                    wcheck = chess->check(chess->getWhiteKing()->row,chess->getWhiteKing()->col,this->pieceColor);
                 else
-                    wcheck = chess->check(chess->blackKing->row,chess->blackKing->col,this->pieceColor);
-                chess->tile[r+1][c+2]->tileSwap(chess->tile[row][col]);
-                chess->tile[r+1][c+2]->tileCopy(tmp);
+                    wcheck = chess->check(chess->getBlackKing()->row,chess->getBlackKing()->col,this->pieceColor);
+                chess->getTile(r+1,c+2)->tileSwap(chess->getTile(row,col));
+                chess->getTile(r+1,c+2)->tileCopy(tmp);
             }
 
             if (!wcheck)
             {
-                chess->exp[chess->max++]=chess->tile[r+1][c+2]->tileNum;
+                chess->newExp(chess->getTile(r+1,c+2)->tileNum);
                 retVal=1;
             }
         }
@@ -272,7 +272,7 @@ int Horse::validate(int row, int col, int checker)
         {
             if (!checker)
             {
-                chess->exp[chess->max++]=chess->tile[r+1][c+2]->tileNum;
+                chess->newExp(chess->getTile(r+1,c+2)->tileNum);
                 retVal=1;
             }
         }
